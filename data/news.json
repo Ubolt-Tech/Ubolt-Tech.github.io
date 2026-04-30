@@ -1,0 +1,8 @@
+{
+  "_meta": {
+    "description": "Latest layoff-related headlines pulled from Google News RSS. Refreshed daily by .github/workflows/refresh-news.yml.",
+    "lastUpdated": null,
+    "query": "layoffs"
+  },
+  "items": []
+}

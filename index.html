@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LayoffLens — Global Layoff Tracker</title>
+  <meta name="description" content="A dashboard for tracking layoffs globally, by country, and by company, powered by Google News." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%89%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">📉</span>
+      <div>
+        <h1>LayoffLens</h1>
+        <p class="tag">Global layoff tracker · powered by Google News</p>
+      </div>
+    </div>
+    <nav class="controls">
+      <label>
+        Window
+        <select id="rangeSelect">
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="180">Last 6 months</option>
+          <option value="365" selected>Last 12 months</option>
+          <option value="1095">Last 3 years</option>
+          <option value="all">All time</option>
+        </select>
+      </label>
+      <label>
+        Industry
+        <select id="industrySelect"><option value="all">All industries</option></select>
+      </label>
+      <label>
+        Country
+        <select id="countrySelect"><option value="all">All countries</option></select>
+      </label>
+      <button id="refreshBtn" title="Refresh news from Google News">↻ Refresh news</button>
+    </nav>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span class="label">Tracked layoffs</span><span class="value" id="kpiEvents">—</span></div>
+    <div class="kpi"><span class="label">People affected</span><span class="value" id="kpiPeople">—</span></div>
+    <div class="kpi"><span class="label">Companies</span><span class="value" id="kpiCompanies">—</span></div>
+    <div class="kpi"><span class="label">Countries</span><span class="value" id="kpiCountries">—</span></div>
+    <div class="kpi"><span class="label">Largest single event</span><span class="value" id="kpiLargest">—</span></div>
+  </section>
+
+  <main class="grid">
+    <section class="card span-2">
+      <header><h2>Trend over time</h2><span class="hint">monthly people affected</span></header>
+      <canvas id="trendChart"></canvas>
+    </section>
+
+    <section class="card">
+      <header><h2>By industry</h2><span class="hint">share of layoffs</span></header>
+      <canvas id="industryChart"></canvas>
+    </section>
+
+    <section class="card span-2">
+      <header><h2>Geographic distribution</h2><span class="hint">click a marker for details</span></header>
+      <div id="map"></div>
+    </section>
+
+    <section class="card">
+      <header><h2>Top countries</h2><span class="hint">people affected</span></header>
+      <canvas id="countryChart"></canvas>
+    </section>
+
+    <section class="card span-2">
+      <header><h2>Top companies</h2><span class="hint">people affected</span></header>
+      <canvas id="companyChart"></canvas>
+    </section>
+
+    <section class="card">
+      <header><h2>Live news feed</h2><span class="hint" id="newsHint">Google News · layoffs</span></header>
+      <ul id="newsList" class="news"></ul>
+    </section>
+
+    <section class="card span-3">
+      <header>
+        <h2>Layoff events</h2>
+        <input id="eventSearch" type="search" placeholder="Search company, country, source…" />
+      </header>
+      <div class="table-wrap">
+        <table id="eventsTable">
+          <thead>
+            <tr>
+              <th data-sort="date">Date</th>
+              <th data-sort="company">Company</th>
+              <th data-sort="industry">Industry</th>
+              <th data-sort="country">Country</th>
+              <th data-sort="count" class="num">Layoffs</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Data: curated baseline of public layoff disclosures + Google News RSS.
+      Not investment advice. Built as a static site on GitHub Pages.
+    </p>
+    <p>
+      <a href="https://github.com/Ubolt-Tech/Ubolt-Tech.github.io" target="_blank" rel="noopener">Source</a>
+      · Last data refresh: <span id="lastRefresh">—</span>
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js" type="module"></script>
+</body>
+</html>

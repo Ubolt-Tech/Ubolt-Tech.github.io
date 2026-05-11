@@ -21,6 +21,17 @@ async function fetchRSS(q) {
   return res.text();
 }
 
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+}
+
 function parseRSS(xml, query) {
   const items = [];
   const itemRe = /<item\b[^>]*>([\s\S]*?)<\/item>/g;
@@ -30,9 +41,10 @@ function parseRSS(xml, query) {
     const body = m[1];
     const get = (t) => (body.match(tagRe(t))?.[1] || '').trim();
     const stripCDATA = (s) => s.replace(/^<!\[CDATA\[/, '').replace(/\]\]>$/, '').trim();
-    const title = stripCDATA(get('title'));
-    const link = stripCDATA(get('link'));
-    const source = stripCDATA(get('source'));
+    const decode = (s) => decodeEntities(stripCDATA(s));
+    const title = decode(get('title'));
+    const link = decode(get('link'));
+    const source = decode(get('source'));
     const pubDate = stripCDATA(get('pubDate'));
     if (title && link) items.push({ title, link, source, pubDate, query });
   }

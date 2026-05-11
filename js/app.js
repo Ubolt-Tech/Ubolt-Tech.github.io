@@ -96,6 +96,7 @@ function applyFilters() {
   if (range !== 'all') {
     cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - Number(range));
+    cutoff.setHours(0, 0, 0, 0); // normalize to start of day so boundary-day events are included
   }
   STATE.filtered = STATE.raw.filter(e => {
     if (cutoff && new Date(e.date) < cutoff) return false;

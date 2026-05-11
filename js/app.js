@@ -362,7 +362,7 @@ function renderNews(items) {
   if (!items.length) { list.innerHTML = '<li class="meta">No items found.</li>'; return; }
   list.innerHTML = items.slice(0, 25).map(i => {
     const when = i.pubDate ? new Date(i.pubDate) : null;
-    const ago = when && !isNaN(when) ? relativeTime(when) : '';
+    const ago = when && !isNaN(when.getTime()) ? relativeTime(when) : '';
     return `<li>
       <a href="${escAttr(i.link)}" target="_blank" rel="noopener">${escHTML(i.title)}</a>
       <div class="meta">${escHTML(i.source || '')}${i.source && ago ? ' · ' : ''}${ago}</div>
@@ -380,7 +380,12 @@ function unique(arr) { return [...new Set(arr)]; }
 function set(id, val) { document.getElementById(id).textContent = val; }
 function fmt(n) { return n == null || isNaN(n) ? '—' : Number(n).toLocaleString(); }
 function escHTML(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
-function escAttr(s) { return escHTML(s); }
+function escAttr(s) {
+  return escHTML(s)
+    .replace(/`/g, '&#96;')
+    .replace(/\r/g, '&#13;')
+    .replace(/\n/g, '&#10;');
+}
 
 function relativeTime(date) {
   const diff = (Date.now() - date.getTime()) / 1000;

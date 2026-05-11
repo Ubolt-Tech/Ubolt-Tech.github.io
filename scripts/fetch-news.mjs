@@ -72,8 +72,12 @@ for (const q of QUERIES) {
   }
 }
 
+const tsOf = (s) => {
+  const t = Date.parse(s);
+  return Number.isFinite(t) ? t : 0; // unparseable dates sort to the bottom
+};
 const merged = dedupe(all)
-  .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
+  .sort((a, b) => tsOf(b.pubDate) - tsOf(a.pubDate))
   .slice(0, 60);
 
 const out = {

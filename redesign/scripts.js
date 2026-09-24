@@ -31,8 +31,12 @@
       var wasOpen = item.classList.contains("open");
       accordion.querySelectorAll(".acc-item").forEach(function (el) {
         el.classList.remove("open");
+        el.querySelector(".acc-btn").setAttribute("aria-expanded", "false");
       });
-      if (!wasOpen) item.classList.add("open");
+      if (!wasOpen) {
+        item.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      }
     });
   }
 
@@ -41,16 +45,18 @@
   var header = document.getElementById("siteHeader");
   if (navToggle && header) {
     navToggle.addEventListener("click", function () {
-      header.classList.toggle("nav-open");
+      var open = header.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
     header.querySelectorAll(".nav a").forEach(function (link) {
       link.addEventListener("click", function () {
         header.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
       });
     });
   }
 
-  /* ---- Newsletter (no backend yet) ---- */
+  /* ---- Newsletter (no backend yet — hands off to the visitor's mail client) ---- */
   var newsletter = document.getElementById("newsletter");
   if (newsletter) {
     newsletter.addEventListener("submit", function (e) {
@@ -58,10 +64,35 @@
       var input = newsletter.querySelector("input");
       var btn = newsletter.querySelector("button");
       if (input && input.value) {
+        window.location.href = "mailto:contact@ubolt.tech" +
+          "?subject=" + encodeURIComponent("Newsletter signup") +
+          "&body=" + encodeURIComponent("Please add " + input.value + " to the Ubolt newsletter.");
         btn.textContent = "Thanks!";
         input.value = "";
         setTimeout(function () { btn.textContent = "Send"; }, 2500);
       }
+    });
+  }
+
+  /* ---- Nav scrollspy ---- */
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.nav a[href^="#"]')
+  );
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function (link) {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + entry.target.id
+          );
+        });
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    navLinks.forEach(function (link) {
+      var target = document.querySelector(link.getAttribute("href"));
+      if (target) spy.observe(target);
     });
   }
 })();

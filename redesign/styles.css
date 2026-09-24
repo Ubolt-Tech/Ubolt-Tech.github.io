@@ -9,7 +9,7 @@
   --primary-soft: #E5EDFA;
   --ink: #05051E;
   --fg-muted: #51516A;
-  --fg-faint: #9F9FB1;
+  --fg-faint: #6E6E85; /* ≥4.5:1 on white for small text (was #9F9FB1, ~2.9:1) */
   --page: #F2F4FC;
   --border: #E9ECF5;
   --border-soft: #E5E9F5;
@@ -24,13 +24,16 @@
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 html, body {
   margin: 0;
   padding: 0;
   background: #fff;
   font-family: "Poppins", "Inter", sans-serif;
   color: var(--ink);
-  overflow-x: hidden;
+  /* clip, not hidden: hidden makes body the sticky scroll container and the header never pins */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -88,6 +91,7 @@ img { max-width: 100%; }
 .nav a { font-size: 14.5px; font-weight: 500; color: var(--fg-muted); }
 .nav a.active { color: var(--primary); }
 .nav a:hover { color: var(--primary); }
+.nav .nav-track { display: none; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .btn-track {
   font-size: 13.5px; font-weight: 600; color: var(--primary);
@@ -209,7 +213,7 @@ img { max-width: 100%; }
 .statcard-foot .ontime { font-size: 10.5px; font-weight: 600; color: #7BE3BE; white-space: nowrap; }
 
 /* ============ SECTION GENERICS ============ */
-section { padding: 104px 0; }
+section { padding: 104px 0; scroll-margin-top: 72px; }
 .sec-light { background: #fff; }
 .sec-page { background: var(--page); }
 h2.sec-title {
@@ -548,6 +552,7 @@ h2.sec-title {
 @media (max-width: 600px) {
   .wrap { padding: 0 18px; }
   .header-actions .btn-track { display: none; }
+  .nav .nav-track { display: block; }
   .hero h1 { font-size: 38px; }
   .hero p.lede { font-size: 16px; }
   .hero-stats { gap: 28px; flex-wrap: wrap; }

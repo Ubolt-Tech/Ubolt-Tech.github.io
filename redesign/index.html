@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ubolt Technologies — One Platform for Fleet, Freight &amp; Finance</title>
   <meta name="description" content="Ubolt runs the full journey of a load — trip planning, live fleet tracking, GST-compliant invoicing, and accounting — in one platform on enterprise cloud, with AI built into your finances.">
+  <meta name="theme-color" content="#003399">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ubolt Technologies">
+  <meta property="og:title" content="Ubolt Technologies — One Platform for Fleet, Freight &amp; Finance">
+  <meta property="og:description" content="One platform to plan trips, track your fleet, raise GST-compliant invoices, and close your books — on enterprise cloud, with AI built into your finances.">
+  <meta property="og:url" content="https://www.ubolt.tech/">
+  <meta property="og:image" content="https://www.ubolt.tech/redesign/assets/logo-blue.png">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" type="image/png" href="assets/logo-blue.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
@@ -22,11 +30,12 @@
         <a href="#ai">AI</a>
         <a href="#career">Career</a>
         <a href="#contact">Contact</a>
+        <a href="https://app.ubolt.tech/" target="_blank" rel="noopener" class="nav-track">Track CN</a>
       </nav>
       <div class="header-actions">
         <a href="https://app.ubolt.tech/" target="_blank" rel="noopener" class="btn-track"><i class="bi bi-box-seam"></i>Track CN</a>
         <a href="https://app.ubolt.tech/" target="_blank" rel="noopener" class="btn-login">Login</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="nav" aria-expanded="false"><i class="bi bi-list"></i></button>
       </div>
     </div>
   </header>
@@ -266,19 +275,19 @@
           <h2>What makes us different from others</h2>
           <div class="accordion" id="accordion">
             <div class="acc-item open">
-              <button class="acc-btn" type="button"><span class="q">One platform, order to ledger</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
+              <button class="acc-btn" type="button" aria-expanded="true"><span class="q">One platform, order to ledger</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
               <div class="acc-body">Operations and accounting share the same data, so a consignment note becomes a GST invoice and a ledger entry without re-entry or reconciliation headaches.</div>
             </div>
             <div class="acc-item">
-              <button class="acc-btn" type="button"><span class="q">Indian compliance, built in</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
+              <button class="acc-btn" type="button" aria-expanded="false"><span class="q">Indian compliance, built in</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
               <div class="acc-body">GST e-invoicing, e-way bills, and TDS are part of the platform, kept current so your team files with confidence.</div>
             </div>
             <div class="acc-item">
-              <button class="acc-btn" type="button"><span class="q">A copilot for your finances</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
+              <button class="acc-btn" type="button" aria-expanded="false"><span class="q">A copilot for your finances</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
               <div class="acc-body">Plain-language analysis, anomaly and fraud detection, and compliance insights mean you spot issues — and answers — before they cost you.</div>
             </div>
             <div class="acc-item">
-              <button class="acc-btn" type="button"><span class="q">Enterprise-grade and always on</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
+              <button class="acc-btn" type="button" aria-expanded="false"><span class="q">Enterprise-grade and always on</span><span class="sign"><i class="bi bi-dash-lg"></i><i class="bi bi-plus-lg"></i></span></button>
               <div class="acc-body">Built on enterprise cloud with security, monitoring, and scale that grow with your fleet.</div>
             </div>
           </div>
@@ -323,11 +332,11 @@
         </div>
         <div class="team-cards">
           <div class="member">
-            <div class="photo"><img src="assets/rajat-nag.png" alt="Rajat Nag"></div>
+            <div class="photo"><img src="assets/rajat-nag.jpg" alt="Rajat Nag"></div>
             <div class="info"><div class="name">Rajat Nag</div><div class="role">Co-Founder</div><p>An experienced industry professional working closely with the logistics &amp; supply-chain industry for the last 17 years.</p></div>
           </div>
           <div class="member">
-            <div class="photo"><img src="assets/mukesh.png" alt="Mukesh Rebari"></div>
+            <div class="photo"><img src="assets/mukesh.jpg" alt="Mukesh Rebari"></div>
             <div class="info"><div class="name">Mukesh Rebari</div><div class="role">Co-Founder</div><p>Has seen logistics-tech development since its inception in the country, across a career spanning 15 years.</p></div>
           </div>
         </div>
@@ -415,14 +424,14 @@
           <h4>Join our newsletter</h4>
           <p>Product updates and logistics insights, occasionally.</p>
           <form class="form" id="newsletter">
-            <input type="email" placeholder="you@company.com" aria-label="Email address" required>
+            <input type="email" id="newsletter-email" name="email" autocomplete="email" placeholder="you@company.com" aria-label="Email address" required>
             <button type="submit">Send</button>
           </form>
         </div>
       </div>
       <div class="footer-bottom">
-        <div>© 2024 Ubolt Technologies Pvt Ltd. All rights reserved.</div>
-        <div class="legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+        <div>© 2026 Ubolt Technologies Pvt Ltd. All rights reserved.</div>
+        <div class="legal"><a href="/policies/android-app-policy.html">Privacy</a><a href="/policies/website_tnc_372471.pdf">Terms</a></div>
       </div>
     </div>
   </footer>
